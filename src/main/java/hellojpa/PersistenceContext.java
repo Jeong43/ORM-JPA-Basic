@@ -47,4 +47,59 @@ public class PersistenceContext {
 
     emf.close();
   }
+
+  void persistence2() {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+
+    try {
+      Member member1 = new Member(150L, "A");
+      Member member2 = new Member(160L, "B");
+
+      em.persist(member1);
+      em.persist(member2);
+
+      System.out.println("=================================");
+      //--> 커밋 시점에서 쿼리가 실행됨
+
+      tx.commit();
+    } catch (Exception e) {
+      tx.rollback();
+    } finally {
+      em.close();
+    }
+
+    emf.close();
+  }
+
+  void persistence3() {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+
+    try {
+      // 변경감지(Dirty Check)
+      // Entity 와 스냅샷을 비교하여 SQL 생성
+      Member member = em.find(Member.class, 150L);
+      member.setName("ZZZZZ");
+      System.out.println("=================================");
+
+      Member member2 = em.find(Member.class, 1L);
+      em.remove(member2);
+      System.out.println("=================================");
+
+      tx.commit();
+    } catch (Exception e) {
+      tx.rollback();
+    } finally {
+      em.close();
+    }
+
+    emf.close();
+  }
 }
