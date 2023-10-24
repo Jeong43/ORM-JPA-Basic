@@ -36,6 +36,7 @@ public class JpaMain {
       //findMember.setName("helloJPA");
 
       // Query
+/*
       List<Member> result = em.createQuery("select m from Member as m", Member.class)
           .setFirstResult(1)
           .setMaxResults(10)
@@ -44,6 +45,18 @@ public class JpaMain {
       for (Member member : result) {
         System.out.println("member.name = " + member.getName());
       }
+*/
+
+      // 비영속
+      Member member = new Member();
+      member.setId(100L);
+      member.setName("HelloJPA");
+
+      // 영속
+      System.out.println("=== BEFORE ===");
+      em.persist(member);
+      System.out.println("=== AFTER ===");
+
 
       tx.commit();
     } catch (Exception e) {
