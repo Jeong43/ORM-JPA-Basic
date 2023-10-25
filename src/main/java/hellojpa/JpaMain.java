@@ -15,12 +15,6 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Member member = em.find(Member.class, 150L);
-      member.setName("AAAAA");
-
-      em.detach(member);
-      //--> 준영속 상태가 되어 변경사항에서 빠짐
-
       System.out.println("=================================");
       tx.commit();
     } catch (Exception e) {
