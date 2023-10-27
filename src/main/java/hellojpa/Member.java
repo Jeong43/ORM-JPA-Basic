@@ -25,4 +25,10 @@ public class Member {
   @ManyToOne
   @JoinColumn(name = "TEAM_ID")
   private Team team;
+
+  //연관관계 체크 메소드
+  //public void changeTeam(Team team) {
+  //  this.team = team;
+  //  team.getMembers().add(this);
+  //}
 }
