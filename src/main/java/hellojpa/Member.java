@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -18,17 +19,10 @@ public class Member {
   private Long id;
   @Column(name = "USERNAME")
   private String name;
-
-//  @Column(name = "TEAM_ID")
-//  private Long teamId;
-
   @ManyToOne
   @JoinColumn(name = "TEAM_ID")
   private Team team;
-
-  //연관관계 체크 메소드
-  //public void changeTeam(Team team) {
-  //  this.team = team;
-  //  team.getMembers().add(this);
-  //}
+  @OneToOne
+  @JoinColumn(name = "LOCKER_ID")
+  private Locker locker;
 }
