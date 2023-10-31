@@ -1,5 +1,6 @@
 package hellojpa;
 
+import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,13 +16,12 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Movie movie = new Movie();
-      movie.setDirector("감독1");
-      movie.setActor("배우1");
-      movie.setPrice(10000);
-      movie.setName("바람과함께사라지다");
+      Member member = new Member();
+      member.setName("user1");
+      member.setCreateBy("kim");
+      member.setCreatedDate(LocalDateTime.now());
 
-      em.persist(movie);
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {

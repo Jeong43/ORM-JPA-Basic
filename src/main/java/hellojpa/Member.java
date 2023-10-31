@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Member {
+public class Member extends BaseEntity {
 
   @Id
   @GeneratedValue
