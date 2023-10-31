@@ -15,6 +15,13 @@ public class JpaMain {
     tx.begin();
 
     try {
+      Movie movie = new Movie();
+      movie.setDirector("감독1");
+      movie.setActor("배우1");
+      movie.setPrice(10000);
+      movie.setName("바람과함께사라지다");
+
+      em.persist(movie);
 
       tx.commit();
     } catch (Exception e) {
