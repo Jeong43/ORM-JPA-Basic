@@ -1,7 +1,9 @@
 package hellojpa.practice;
 
 import hellojpa.Member;
+import hellojpa.Team;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -49,6 +51,87 @@ public class Proxy {
       tx.commit();
     } catch (Exception e) {
       tx.rollback();
+    } finally {
+      em.close();
+    }
+
+    emf.close();
+  }
+
+  public void lazyLoading() {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+
+    try {
+      Team team = new Team();
+      team.setName("TeamA");
+      em.persist(team);
+
+      Member member = new Member();
+      member.setName("user1");
+      member.setCreateBy("kim");
+      member.setCreatedDate(LocalDateTime.now());
+      member.setTeam(team);
+
+      em.persist(member);
+
+      em.flush();
+      em.clear();
+
+      System.out.println("=====================================");
+      Member refMember = em.getReference(Member.class, member.getId());
+      System.out.println("refMember = " + refMember.getClass()); //Proxy
+      System.out.println("refMember.Team = " + refMember.getTeam().getClass()); //Proxy
+
+      System.out.println("=====================================");
+      System.out.println("refMember.Team.Name = " + refMember.getTeam().getName()); //초기화
+      System.out.println("refMember.Team = " + refMember.getTeam().getClass());
+
+      tx.commit();
+    } catch (Exception e) {
+      tx.rollback();
+      System.out.println(e);
+    } finally {
+      em.close();
+    }
+
+    emf.close();
+  }
+
+  public void eagerLoading() {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+
+    try {
+      Team team = new Team();
+      team.setName("TeamA");
+      em.persist(team);
+
+      Member member = new Member();
+      member.setName("user1");
+      member.setCreateBy("kim");
+      member.setCreatedDate(LocalDateTime.now());
+      member.setTeam(team);
+
+      em.persist(member);
+
+      em.flush();
+      em.clear();
+
+      System.out.println("=====================================");
+      List<Member> members = em.createQuery("select m from Member m", Member.class)
+          .getResultList();
+
+      tx.commit();
+    } catch (Exception e) {
+      tx.rollback();
+      System.out.println(e);
     } finally {
       em.close();
     }
