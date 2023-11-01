@@ -113,19 +113,29 @@ public class Proxy {
       team.setName("TeamA");
       em.persist(team);
 
+      Team team2 = new Team();
+      team2.setName("TeamB");
+      em.persist(team2);
+
       Member member = new Member();
       member.setName("user1");
       member.setCreateBy("kim");
       member.setCreatedDate(LocalDateTime.now());
       member.setTeam(team);
-
       em.persist(member);
+
+      Member member2 = new Member();
+      member.setName("user2");
+      member.setCreateBy("kim2");
+      member.setCreatedDate(LocalDateTime.now());
+      member.setTeam(team2);
+      em.persist(member2);
 
       em.flush();
       em.clear();
 
       System.out.println("=====================================");
-      List<Member> members = em.createQuery("select m from Member m", Member.class)
+      List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class)
           .getResultList();
 
       tx.commit();
