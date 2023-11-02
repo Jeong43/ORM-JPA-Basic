@@ -1,11 +1,11 @@
 package hellojpa;
 
-import hellojpa.practice.Proxy;
+import hellojpa.practice.Cascade;
 
 public class JpaMain {
 
   public static void main(String[] args) {
-    Proxy proxy = new Proxy();
-    proxy.eagerLoading();
+    Cascade cascade = new Cascade();
+    cascade.cascade();
   }
 }
