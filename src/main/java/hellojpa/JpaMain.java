@@ -1,11 +1,11 @@
 package hellojpa;
 
-import hellojpa.practice.Cascade;
+import hellojpa.practice.Embedded;
 
 public class JpaMain {
 
   public static void main(String[] args) {
-    Cascade cascade = new Cascade();
-    cascade.cascade();
+    Embedded embedded = new Embedded();
+    embedded.embedded();
   }
 }

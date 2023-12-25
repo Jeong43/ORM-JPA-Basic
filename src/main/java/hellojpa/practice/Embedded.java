@@ -1,16 +1,16 @@
-/*
 package hellojpa.practice;
 
-import hellojpa.Child;
-import hellojpa.Parent;
+import hellojpa.Address;
+import hellojpa.Member;
+import hellojpa.Period;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class Cascade {
+public class Embedded {
 
-  public void cascade() {
+  public void embedded() {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
     EntityManager em = emf.createEntityManager();
 
@@ -18,20 +18,13 @@ public class Cascade {
     tx.begin();
 
     try {
-      Child child1 = new Child();
-      Child child2 = new Child();
 
-      Parent parent = new Parent();
-      parent.addChild(child1);
-      parent.addChild(child2);
+      Member member = new Member();
+      member.setName("name1");
+      member.setHomeAddress(new Address("seoul", "wall", "1235"));
+      member.setWorkPeriod(new Period());
 
-      em.persist(parent);
-
-      em.flush();
-      em.clear();
-
-      Parent findParent = em.find(Parent.class, parent.getId());
-      findParent.getChildList().remove(0);
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {
@@ -44,4 +37,3 @@ public class Cascade {
     emf.close();
   }
 }
-*/
