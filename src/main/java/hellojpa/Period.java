@@ -2,16 +2,18 @@ package hellojpa;
 
 import java.time.LocalDateTime;
 import javax.persistence.Embeddable;
-import lombok.Data;
+import lombok.Value;
 
 @Embeddable
-@Data
+@Value
 public class Period {
 
-  private LocalDateTime startDate;
-  private LocalDateTime endDate;
+  LocalDateTime startDate;
+  LocalDateTime endDate;
 
   public Period() {
+    startDate = null;
+    endDate = null;
   }
 
   public Period(LocalDateTime startDate, LocalDateTime endDate) {

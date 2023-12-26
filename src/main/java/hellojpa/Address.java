@@ -2,18 +2,21 @@ package hellojpa;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import lombok.Data;
+import lombok.Value;
 
 @Embeddable
-@Data
+@Value
 public class Address {
 
-  private String city;
-  private String street;
+  String city;
+  String street;
   @Column(name = "ZIPCODE")
-  private String zipcode;
+  String zipcode;
 
   public Address() {
+    city = null;
+    street = null;
+    zipcode = null;
   }
 
   public Address(String city, String street, String zipcode) {
