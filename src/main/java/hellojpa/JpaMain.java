@@ -1,11 +1,11 @@
 package hellojpa;
 
-import hellojpa.practice.Embedded;
+import hellojpa.practice.ValueType;
 
 public class JpaMain {
 
   public static void main(String[] args) {
-    Embedded embedded = new Embedded();
-    embedded.embedded();
+    ValueType valueType = new ValueType();
+    valueType.collection();
   }
 }
