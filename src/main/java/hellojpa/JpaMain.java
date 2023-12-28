@@ -1,11 +1,11 @@
 package hellojpa;
 
-import hellojpa.practice.ValueType;
+import hellojpa.practice.Jpql;
 
 public class JpaMain {
 
   public static void main(String[] args) {
-    ValueType valueType = new ValueType();
-    valueType.collection();
+    Jpql jpql = new Jpql();
+    jpql.basic();
   }
 }
